@@ -1,64 +1,44 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useAuth } from "../../auth/auth";
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 
-function EmailVerification() {
-  const [count, setCount] = useState(0);
-  const [showCounter, setShowCounter] = useState(false);
-  const { userEmail } = useAuth();
-
+function VerifyEmail() {
   return (
     <Body>
       <Logo>
         <img src="/images/eva new new2.png" alt="" />
       </Logo>
       <Container>
-        <h3>Verify your account</h3>
+       <Icon> <Checked /></Icon>
+       <h3>Verified!</h3>
         <span>
-          A verification email was sent to your email address{" "}
-          <strong>{userEmail}</strong>
+         You have Successfully verified your email address
+         
         </span>
-        <p>
-          Please ensure you click on the <strong>Confirm Email Address </strong>
-          link in the email sent to you to verify your account
-        </p>
-        
-        <button disabled={showCounter} onClick={() => setShowCounter(true)}>
-          Resend Verification
-        </button>
-        {showCounter && <p>Please wait for 2 minutes before re-sending</p>}
-        <a href="/register">Back to Sign Up</a>
+       
+
+        <a href="/user_details">Continue registration</a>
       </Container>
     </Body>
   );
 }
+const Icon = styled.div`
+padding:1rem;
+height:90px;
+width:90px;
+border-radius:50%;
+background:#006daa;
+display:flex;
+justify-content:center;
+align-content:center;
+align-self:center;
 
-const InputsContainer = styled.div`
-  width: 400px;
-  max-width: 100%;
-  margin: 1.5rem auto;
-  @media (max-width: 512px) {
-    width: 100%;
-  }
-`;
-const Inputs = styled.div`
-  display: flex;
-  justify-content: space-around;
-  input {
-    width: 50px;
-    height: 50px;
-    border: none;
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 15%);
-    border-radius: 5px;
-    background: #ffffff;
-    font-size: 32px;
-    text-align: center;
-    @media (max-width: 348px) {
-      width: 40px;
-      height: 40px;
-    }
-  }
-`;
+`
+const Checked = styled(CheckOutlinedIcon)`
+color:#fff;
+font-size:56px !important;
+
+`
 
 const Body = styled.div`
   display: flex;
@@ -74,6 +54,8 @@ const Body = styled.div`
   h3 {
     text-align: center;
     margin-bottom: 1rem;
+    margin-top: 1rem;
+    font-weight:bold;
   }
   span {
     text-align: center;
@@ -130,4 +112,4 @@ const Logo = styled.div`
     height: 100%;
   }
 `;
-export default EmailVerification;
+export default VerifyEmail;

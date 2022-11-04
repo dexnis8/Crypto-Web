@@ -29,6 +29,7 @@ import DashTable from "./components/Dashboard/Tables/DashboardTable/DashTable";
 import InvoiceErrorPage from "./components/InvoiceErrorPage";
 import InvoiceAuth from "./components/InvoiceAuth";
 import PreSignUp from "./components/Registration/PreSignUp";
+import VerifyEmail from "./components/Registration/VerifyEmail";
 
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/email_verification" element={<EmailVerification />} />
-          <Route path="/table" element={<DashTable />} />
+          <Route path="/verification_successful" element={<VerifyEmail />} />
           <Route
             path="/payment_link-invoice"
             element={
@@ -55,6 +56,8 @@ function App() {
           />
 
           <Route path="/register" element={<PreSignUp />} />
+          
+          <Route path="/user_details" element={<Register />} />
           <Route
             path="user_dashboard"
             element={

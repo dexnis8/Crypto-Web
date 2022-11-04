@@ -119,10 +119,10 @@ function Register() {
             </Logo>
             <FormContainer>
               <FormHeader>
-                <h1>Create an account</h1>
-                <p>
+                <h1>Please fill in your details</h1>
+                {/* <p>
                   Already have an account? <Link to="/login">Sign In</Link>
-                </p>
+                </p> */}
               </FormHeader>
               {/* <ErrorMessage>{errMsg}</ErrorMessage> */}
               <form onSubmit={handleSubmit}>
@@ -153,7 +153,7 @@ function Register() {
                     <ErrorMessage>{lastNameErrMsg}</ErrorMessage>
                   </InputContainer>
                 </NameField>
-                <InputContainer>
+                {/* <InputContainer>
                   <InputLabel>Email-address</InputLabel>
                   <input
                     type="email"
@@ -166,7 +166,7 @@ function Register() {
                     onInput={() => setEmailErrMsg("")}
                   />
                   <ErrorMessage>{emailErrMsg}</ErrorMessage>
-                </InputContainer>
+                </InputContainer> */}
                 {/* <PasswordField> */}
                 <InputContainer>
                   <InputLabel>Create Password</InputLabel>

@@ -673,6 +673,7 @@ const Edit = styled(ModeEditOutlineOutlinedIcon)`
     color: #fff;
   }
 `;
+
 const MyCircularProgress = styled(CircularProgress)`
   color: #fff !important;
 `;
