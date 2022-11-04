@@ -27,7 +27,7 @@ const columns = [
 
 let data;
 const fetchTableData = () => {
-  console.log("fetching data");
+  console.log("fetching table data");
   axios
     .post('/?action=get_invoice_list', null, {
       params: {
