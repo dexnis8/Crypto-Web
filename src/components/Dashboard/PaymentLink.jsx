@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import axios from "../../api/axios";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Navigate } from "react-router-dom";
+import { Navigate,useNavigate, createSearchParams } from "react-router-dom";
 import PaymentLinkTable from "./Tables/DashboardTable/PaymentLinkTable";
 
 /* 
@@ -33,6 +33,7 @@ const PaymentLink = () => {
   const [priceErrMsg, setPriceErrMsg] = useState("");
   const [pay_currencyErr, setpay_currencyErr] = useState("");
   const [success, setSuccess] = useState(false);
+  const [invoiceID, setInvoiceID] = useState('')
 
   const verifyPaymentLink = (e) => {
     e.preventDefault();
@@ -56,7 +57,7 @@ const PaymentLink = () => {
           // setUpdatedName(data);
           setPrice("");
           setpay_currency("");
-          sessionStorage.setItem("inid", resp.data.data[0].invoiceID);
+          setInvoiceID(resp.data.data[0].invoiceID)
           setSuccess(true);
         })
         .catch((err) => {
@@ -68,11 +69,20 @@ const PaymentLink = () => {
       !pay_currency && setpay_currencyErr("No payment currency selected");
     }
   };
-  console.log(sessionStorage.getItem('token'))
+  const navigate = useNavigate();
+  const params = { invoiceID: invoiceID, sort: 'date'};
+  
+
+  const generateInvoice = () =>
+    navigate({
+      pathname: '/payment_link-invoice',
+      search: `?${createSearchParams(params)}`,
+    });
   return (
     <>
       {success ? (
-        <Navigate to="/payment_link-invoice" />
+        generateInvoice()
+        // <Navigate to="/payment_link-invoice" />
       ) : (
         <div>
           {showModal && <Backdrop />}

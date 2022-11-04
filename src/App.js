@@ -1,7 +1,7 @@
 import LandingPage from "./components/Landingpage/LandingPage";
 // import Dashboard from "./components/Authentication/Dashboard";
 // import Preference from "./components/Authentication/Preference";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 // import Login from "./components/Authentication/Login";
 // import { useState } from "react";
 import Register from "./components/Registration/Register";
@@ -26,6 +26,10 @@ import RequireAuth from "./components/RequireAuth";
 import FAQ from "./components/Static Pages/FAQ";
 import ContactUs from "./components/Static Pages/ContactUs";
 import DashTable from "./components/Dashboard/Tables/DashboardTable/DashTable";
+import InvoiceErrorPage from "./components/InvoiceErrorPage";
+import InvoiceAuth from "./components/InvoiceAuth";
+import PreSignUp from "./components/Registration/PreSignUp";
+
 
 function App() {
   return (
@@ -39,17 +43,18 @@ function App() {
           <Route
             path="/payment_link-invoice"
             element={
-              <RequireAuth>
+              <InvoiceAuth>
                 <Invoice />
-              </RequireAuth>
+              </InvoiceAuth>
             }
           />
+          <Route path="" element={<Navigate to="/payment_link-invoice" />} />
           <Route
             path="/two_factor-authentication"
             element={<TwoFactorAuthentication />}
           />
 
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<PreSignUp />} />
           <Route
             path="user_dashboard"
             element={
@@ -72,6 +77,8 @@ function App() {
           <Route path="/supported_coins" element={<SupportedCoins />} />
           <Route path="/help_faq" element={<FAQ />} />
           <Route path="/help_contact-us" element={<ContactUs />} />
+          <Route path="/unauthenticated_url-request" element={<InvoiceErrorPage />} />
+          
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </AuthProvider>

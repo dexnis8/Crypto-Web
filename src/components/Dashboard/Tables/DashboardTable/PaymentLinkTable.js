@@ -11,13 +11,13 @@ const columns = [
         sortable: true,
     },
     {
-        name: 'Amount',
-        selector: row => row.amount,
+        name: 'Invoice URL',
+        selector: row => row.url,
         sortable: true,
     },
     {
-        name: 'Invoice URL',
-        selector: row => row.url,
+        name: 'Amount',
+        selector: row => row.amount,
         sortable: true,
     },
     {

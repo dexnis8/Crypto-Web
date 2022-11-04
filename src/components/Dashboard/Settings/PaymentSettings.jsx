@@ -302,6 +302,14 @@ useEffect(()=>{
   setRecurrMsg('')
   setTimeMg('')
 },[])
+
+useEffect(()=>{
+  getIPNKey()
+  getApiKey()
+  getRecurrent()
+  getTimeout()
+},[])
+
   return (
     <ContainerFluid>
       <Container>

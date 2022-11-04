@@ -4,17 +4,25 @@ import QRCode from "react-qr-code";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import axios from "../../api/axios";
+import { Navigate, useLocation } from "react-router-dom";
+
 
 const qrCodeStyles = {
   height: "100px",
   width: "100px",
 };
 
-const invoiceID = sessionStorage.getItem("inid");
+
 const user_id = sessionStorage.getItem("userId");
 const Invoice = () => {
-  const [textArea, setTextArea] = useState("Trwre0e8ScyUUVeos1hdh32jhehsnd4k");
+  const search = useLocation().search;
+  const invoiceID = new URLSearchParams(search).get('invoiceID');
+  const [active1, setActive1] = useState('')
+  const [active2, setActive2] = useState('')
+  const [active3, setActive3] = useState('')
+  const [textArea, setTextArea] = useState("");
   const [copyed, setCopyed] = useState("Copy");
+  const [invalidID, setInvalidID] = useState(false)
   const handleCopy = () => {
     setCopyed("Copy");
   };
@@ -30,7 +38,39 @@ const Invoice = () => {
   const [fundAddress, setFundAddress] = useState("");
   // const [qrCode, setQrCode] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("");
+  
 
+  const getPaymentStatus = () => {
+    axios
+      .post("/?action=get_tx_status", null, {
+        params: {
+          user_id,
+          invoiceID,
+        },
+      })
+      .then((resp) => {
+        const data = resp.data.data[0];
+        if(data.status === 'completed'){
+          setActive1('active')
+          setActive2('active')
+          setActive3('active')
+        }else if(data.status === 'confirmed'){
+          setActive1('active')
+        }else if(data.status === 'sending'){
+          setActive1('active')
+          setActive2('active')
+
+        }
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+useEffect(()=>{
+  setInterval(getPaymentStatus,5000)
+
+},[active1,active2,active3])
   const getInvoice = () => {
     axios
       .post("/?action=get_invoice_details", null, {
@@ -40,12 +80,16 @@ const Invoice = () => {
         },
       })
       .then((resp) => {
-        console.log(resp);
-        console.log(resp.data);
-        console.log(resp.data.data);
+        console.log(resp.data)
         const data = resp.data.data[0];
-        setCoinAmount(`$${data.amount}`);
-        setFundAddress(data.address);
+        if(resp.data.status_code===200){
+          setCoinAmount(`$${data.amount}`);
+          setFundAddress(data.address);
+          getPaymentStatus()
+        } else  if(resp.data.status_code===403) {
+          setInvalidID(true)
+          
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -57,6 +101,10 @@ const Invoice = () => {
   }, [invoiceID]);
 
   return (
+    <>
+    {
+      invalidID? (<Navigate to='/unauthenticated_url-request' />) : (
+        
     <Container>
       <Logo>
         <img src="./images/eva new white.png" alt="" />
@@ -84,21 +132,21 @@ const Invoice = () => {
         </QrContainer>
       </Content>
       <OrderProcess>
-        <div class="modal-body">
-          <div class="progress-track">
+        <div className="modal-body">
+          <div className="progress-track">
             <ul id="progressbar">
-              <li class="step0 active " id="step1">
+              <li className="step0 active " id="step1">
                 Waiting <br /> for payment
               </li>
-              <li class="step0  text-center" id="step2">
+              <li className={`step0 ${active1}  text-center` }id="step2">
                 Confirmed <br /> on blockchain
               </li>
-              <li class="step0  text-right" id="step3">
-                <span id="three">
+              <li className={`step0 ${active2}  text-center` } id="step3">
+                <span id="three" className="pl-3 text-left">
                   Sending to <br /> seller
                 </span>
               </li>
-              <li class="step0  text-right" id="step4">
+              <li className={`step0 ${active3}  text-right` }id="step4">
                 Sent <br /> to seller
               </li>
             </ul>
@@ -106,6 +154,10 @@ const Invoice = () => {
         </div>
       </OrderProcess>
     </Container>
+    
+    )
+  }
+    </>
   );
 };
 const MyQRCode = styled(QRCode)`
@@ -136,13 +188,13 @@ const CoinValue = styled.div`
     margin-bottom: 0;
   }
 `;
-const WalletAddress = styled.h3`
+const WalletAddress = styled.h5`
   font-weight: bold;
   display: flex;
   flex-wrap: wrap;
   row-gap: 5px;
   @media (max-width: 500px) {
-    font-size: 16px;
+    font-size: 16px !important;
   }
 `;
 
@@ -167,18 +219,21 @@ const Logo = styled.div`
   overflow: hidden;
   padding: 1rem;
   img {
-    width: 20%;
+    width: 200px;
     height: 100%;
   }
 `;
 const Container = styled.div`
   max-width: 100%;
-  width: 900px;
+  width: 60%;
   margin: 2rem auto;
   /* border: 1px solid red; */
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 15%);
   /* background:red; */
   background: #ffffff;
+  @media (max-width:800px){
+    width:95%;
+  }
 `;
 export default Invoice;

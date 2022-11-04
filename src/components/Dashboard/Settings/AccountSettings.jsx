@@ -305,6 +305,10 @@ const AccountSettings = () => {
   //     setGoogleAuth(true);
   //   }
   // };
+  useEffect(()=>{
+    getAuthStatus()
+    getCompanyName()
+  },[])
 
   return (
     <>

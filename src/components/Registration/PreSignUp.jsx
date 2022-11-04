@@ -5,10 +5,9 @@ import { useAuth } from "../../auth/auth";
 import axios from "../../api/axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import { ConstructionOutlined } from "@mui/icons-material";
+import EmailVerification from "./EmailVerification";
 
-const LOGIN_URL = "/?action=login";
-
-function Login() {
+function PreSignUp() {
   const navigate = useNavigate();
   // const { setAuth } = useAuth();
 
@@ -30,61 +29,35 @@ function Login() {
   useEffect(() => {
     setErrMsg("");
   }, [email, password]);
-
-  const validateUserInput = () => {
-    !email && setEmailErr("email is required");
-    !password && setPasswordErr("password is required");
-    setLoading(false);
-    if (email && password) {
-      setValidated(true);
-    }
-  };
-  const loginValidation = () => {
-    setLoading(true);
-    axios
-      .post(LOGIN_URL, null, {
+const verifyEmail = (e)=>{
+    e.preventDefault()
+    if(email){
+        setLoading(true)
+        axios
+      .post("/?action=reg_email", null, {
         params: {
           email,
-          password,
         },
       })
       .then((resp) => {
-        const statusCode = resp.data.status_code;
-        if (statusCode === 200) {
-          setSuccess(true);
-          console.log("Successfully logged in");
-          const userInfo = resp.data.data[0];
-          console.log(userInfo)
-            sessionStorage.setItem("loggedIn", "true");
-            sessionStorage.setItem("userId", userInfo.id);
-            sessionStorage.setItem('userName', userInfo.first_name)
-            sessionStorage.setItem('email', userInfo.email)
-            sessionStorage.setItem('userName', userInfo);
-        }
-
-        statusCode === 403 && setErrMsg("Your email or password is incorrect ");
-        setLoading(false);
+       console.log(resp)
+       setLoading(false)
+       setErrMsg(resp.data.message)
+       sessionStorage.setItem('email', email)
+       setSuccess(true)
+   
       })
       .catch((err) => {
         console.log(err);
-        setErrMsg("Something went wrong! Please try again ");
         setLoading(false);
       });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validated) {
-      loginValidation();
     }
-  };
+    !email && setEmailErr('Email is required')
+}
   return (
     <>
       {success ? (
-        <div>
-        window.location.reload()
-        <Navigate to="/two_factor-authentication" />
-        </div>
+        <Navigate to ='/email_verification' replace={true} />
       ) : (
         <ContainerFluid>
           <ContentContainer>
@@ -95,13 +68,13 @@ function Login() {
 
             <FormContainer>
               <FormHeader>
-                <h1>Sign In </h1>
+                <h1>Sign Up </h1>
                 <p>
-                  Not a user? <Link to="/register">Create account</Link>
+                  Already a user? <Link to="/login">Create account</Link>
                 </p>
               </FormHeader>
 
-              <form onSubmit={handleSubmit}>
+              <form>
                 <ErrorMessage ref={errRef} aria-live="assertive">
                   {errMsg}
                 </ErrorMessage>
@@ -118,37 +91,11 @@ function Login() {
                   />
                   <ErrorMessage>{emailErr}</ErrorMessage>
                 </InputContainer>
-                <InputContainer>
-                  <InputLabel>Password</InputLabel>
-                  <input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    onInput={() => setPasswordErr("")}
-                  />
-                  <ErrorMessage>{passwordErr} </ErrorMessage>
-                </InputContainer>
-
-                <CheckBoxField>
-                  <CheckBox>
-                    <div>
-                      <input type="checkbox" />
-                    </div>
-                    <p>Remember me</p>
-                  </CheckBox>
-                  <CheckBox>
-                    <p>
-                      <a href=" ">Forgot your password?</a>{" "}
-                    </p>
-                  </CheckBox>
-                </CheckBoxField>
-
-                <button type="submit" onClick={validateUserInput}>
-                  {loading && validated ? (
+                <button type="submit" onClick={verifyEmail}>
+                  {loading? (
                     <MyCircularProgress size="1.5rem" />
                   ) : (
-                    "Sign In"
+                    "Verify Email"
                   )}
                 </button>
               </form>
@@ -307,4 +254,4 @@ const ErrorMessage = styled.div`
   font-size: 14px;
   /* font-style: italic; */
 `;
-export default Login;
+export default PreSignUp;

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useAuth } from "../../auth/auth";
 
-function EmailVerification() {
-  const [count, setCount] = useState(0);
-  const [showCounter, setShowCounter] = useState(false);
-  const { userEmail } = useAuth();
+
+function InvoiceErrorPage() {
+  
 
   return (
     <Body>
@@ -13,63 +11,20 @@ function EmailVerification() {
         <img src="/images/eva new new2.png" alt="" />
       </Logo>
       <Container>
-        <h3>Verify your account</h3>
+        <h3>INVALID URL</h3>
         <span>
           A verification email was sent to your email address{" "}
-          <strong>{userEmail}</strong>
+          
         </span>
         <p>
           Please ensure you click on the <strong>Verify Email Address </strong>
           link in the email sent to you to verify your account
         </p>
-        <InputsContainer>
-            
-            <Inputs>
-              <input type="text" maxLength={1} />
-              <input type="text" maxLength={1} />
-              <input type="text" maxLength={1} />
-              <input type="text" maxLength={1} />
-              <input type="text" maxLength={1} />
-              <input type="text" maxLength={1} />
-            </Inputs>
-          </InputsContainer>
-        <button disabled={showCounter} onClick={() => setShowCounter(true)}>
-          Resend Verification
-        </button>
-        {showCounter && <p>Please wait for 2 minutes before re-sending</p>}
         <a href="/">Back to Home</a>
       </Container>
     </Body>
   );
 }
-
-const InputsContainer = styled.div`
-  width: 400px;
-  max-width: 100%;
-  margin: 1.5rem auto;
-  @media (max-width: 512px) {
-    width: 100%;
-  }
-`;
-const Inputs = styled.div`
-  display: flex;
-  justify-content: space-around;
-  input {
-    width: 50px;
-    height: 50px;
-    border: none;
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 15%);
-    border-radius: 5px;
-    background: #ffffff;
-    font-size: 32px;
-    text-align: center;
-    @media (max-width: 348px) {
-      width: 40px;
-      height: 40px;
-    }
-  }
-`;
-
 const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -140,4 +95,4 @@ const Logo = styled.div`
     height: 100%;
   }
 `;
-export default EmailVerification;
+export default InvoiceErrorPage;

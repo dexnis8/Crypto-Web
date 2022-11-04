@@ -1,9 +1,17 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+
+
 const TwoFactorAuthentication = () => {
+  const userEmail = sessionStorage.getItem('email')
   const navigate = useNavigate();
+  const [email, setEmail] = useState('')
+  useEffect(()=>{
+setEmail(userEmail)
+
+  },[email])
   return (
     <Main>
       <Section>
@@ -14,7 +22,7 @@ const TwoFactorAuthentication = () => {
           <h2>Two Factor Authentication</h2>
           <span>
             Please check your inbox for verification code sent to{" "}
-            <strong>dexnis30@gmail.com</strong>{" "}
+            <strong>{email}</strong>{" "}
           </span>
 
           <InputsContainer>
@@ -42,6 +50,7 @@ const Section = styled.div`
   row-gap: 1rem;
   /* margin-top: 2rem; */
 `;
+
 const InputsContainer = styled.div`
   width: 400px;
   max-width: 100%;
