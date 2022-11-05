@@ -30,10 +30,7 @@ import InvoiceErrorPage from "./components/InvoiceErrorPage";
 import InvoiceAuth from "./components/InvoiceAuth";
 import PreSignUp from "./components/Registration/PreSignUp";
 import VerifyEmail from "./components/Registration/VerifyEmail";
-import ForgetPassword from "./components/Registration/ForgetPassword";
-import ResetPassword from "./components/Registration/ResetPassword";
-import CheckEmailPwd from "./components/Registration/CheckEmailPwd";
-import PwdChangeSuccess from "./components/Registration/PwdChangeSuccess";
+
 
 function App() {
   return (
@@ -59,16 +56,8 @@ function App() {
           />
 
           <Route path="/register" element={<PreSignUp />} />
-
+          
           <Route path="/user_details" element={<Register />} />
-          <Route path="/forget_password" element={<ForgetPassword />} />
-          <Route path="/verify_password-reset" element={<CheckEmailPwd />} />
-          <Route path="/verify" element={<ResetPassword />} />
-          <Route path="" element={<Navigate to="/verify" />} />
-          <Route
-            path="/password_reset-successful"
-            element={<PwdChangeSuccess />}
-          />
           <Route
             path="user_dashboard"
             element={
@@ -86,14 +75,13 @@ function App() {
             <Route path="payment_settings" element={<PaymentSettings />} />
             <Route path="coin_settings" element={<CoinSettings />} />
           </Route>
+
           <Route path="/affliate_program" element={<AffliateProgram />} />
           <Route path="/supported_coins" element={<SupportedCoins />} />
           <Route path="/help_faq" element={<FAQ />} />
           <Route path="/help_contact-us" element={<ContactUs />} />
-          <Route
-            path="/unauthenticated_url-request"
-            element={<InvoiceErrorPage />}
-          />
+          <Route path="/unauthenticated_url-request" element={<InvoiceErrorPage />} />
+          
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </AuthProvider>

@@ -22,20 +22,48 @@ function EmailVerification() {
           Please ensure you click on the <strong>Confirm Email Address </strong>
           link in the email sent to you to verify your account
         </p>
-
+        
         <button disabled={showCounter} onClick={() => setShowCounter(true)}>
           Resend Verification
         </button>
-        {showCounter && <p>Please wait for 1 minutes before re-sending</p>}
+        {showCounter && <p>Please wait for 2 minutes before re-sending</p>}
         <a href="/register">Back to Sign Up</a>
       </Container>
     </Body>
   );
 }
 
+const InputsContainer = styled.div`
+  width: 400px;
+  max-width: 100%;
+  margin: 1.5rem auto;
+  @media (max-width: 512px) {
+    width: 100%;
+  }
+`;
+const Inputs = styled.div`
+  display: flex;
+  justify-content: space-around;
+  input {
+    width: 50px;
+    height: 50px;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 15%);
+    border-radius: 5px;
+    background: #ffffff;
+    font-size: 32px;
+    text-align: center;
+    @media (max-width: 348px) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+`;
+
 const Body = styled.div`
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
   align-items: center;
   padding-top: 3rem;
   height: 100vh;

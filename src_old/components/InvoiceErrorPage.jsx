@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useAuth } from "../../auth/auth";
 
-function EmailVerification() {
-  const [count, setCount] = useState(0);
-  const [showCounter, setShowCounter] = useState(false);
-  const { userEmail } = useAuth();
+
+function InvoiceErrorPage() {
+  
 
   return (
     <Body>
@@ -13,29 +11,24 @@ function EmailVerification() {
         <img src="/images/eva new new2.png" alt="" />
       </Logo>
       <Container>
-        <h3>Verify your account</h3>
+        <h3>INVALID URL</h3>
         <span>
           A verification email was sent to your email address{" "}
-          <strong>{userEmail}</strong>
+          
         </span>
         <p>
-          Please ensure you click on the <strong>Confirm Email Address </strong>
+          Please ensure you click on the <strong>Verify Email Address </strong>
           link in the email sent to you to verify your account
         </p>
-
-        <button disabled={showCounter} onClick={() => setShowCounter(true)}>
-          Resend Verification
-        </button>
-        {showCounter && <p>Please wait for 1 minutes before re-sending</p>}
-        <a href="/register">Back to Sign Up</a>
+        <a href="/">Back to Home</a>
       </Container>
     </Body>
   );
 }
-
 const Body = styled.div`
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
   align-items: center;
   padding-top: 3rem;
   height: 100vh;
@@ -102,4 +95,4 @@ const Logo = styled.div`
     height: 100%;
   }
 `;
-export default EmailVerification;
+export default InvoiceErrorPage;

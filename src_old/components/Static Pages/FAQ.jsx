@@ -19,6 +19,7 @@ const FAQ = () => {
         <span>You can also check below for frequently asked questions</span>
       </FaqHero>
       <Header>
+      <button onClick = {()=> navigate('https://api.evapayments.com')}>Navigate</button>
       <h3>Frequently Asked Questions </h3>
 
       </Header>

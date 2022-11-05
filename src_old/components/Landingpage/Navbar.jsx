@@ -14,6 +14,7 @@ const Navbar = () => {
   const [burgerStatus, setburgerStatus] = useState(false);
   const user_id = sessionStorage.getItem("userId");
 
+
   return (
     <ContainerFluid>
       <MaxContainer>
@@ -187,7 +188,7 @@ const MenuList = styled.div`
     display: flex;
     justify-content: space-between;
     list-style: none;
-    /* padding-top: 10px; */
+    padding-top: 10px;
   }
 
   li a {
@@ -218,11 +219,11 @@ const Logo = styled.div`
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  /* padding-top: 10px; */
+  padding-top: 10px;
 
   img {
     margin-left: -0.8rem;
-    margin-top: 5px;
+    margin-top:5px;
     width: 100%;
     height: 100%;
     align-self: center;
@@ -270,7 +271,7 @@ const DropDownMenu = styled.div`
   right: 0;
   text-align: left;
   border-radius: 5px;
-  z-index: 20;
+  z-index:20;
   transition: 0.2s ease-in-out;
   opacity: ${(props) => (props.show ? 1 : 0)};
   transform: ${(props) => (props.show ? "translateY(0%)" : "translateY(-10%)")};
